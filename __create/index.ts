@@ -255,12 +255,3 @@ export default await createHonoServer({
   app,
   defaultLogger: false,
 });
-// __create/index.ts
-const routeModules = import.meta.glob('../../app/api/**/*.ts', { eager: true });
-
-// Example: iterate and register
-for (const path in routeModules) {
-  const route = routeModules[path].default;
-  app.route(route.path, route.handler);
-}
-
