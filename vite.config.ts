@@ -89,4 +89,8 @@ export default defineConfig({
       clientFiles: ['./src/app/**/*', './src/app/root.tsx', './src/app/routes.ts'],
     },
   },
+  build: {
+    ssr: true,
+    target: 'esnext',  // Important: allow top-level await
+  },
 });
