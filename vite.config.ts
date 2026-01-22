@@ -31,12 +31,6 @@ export default defineConfig({
     nextPublicProcessEnv(),
     restartEnvFileChange(),
 
-    // SSR plugin removed for SPA deploy
-    // reactRouterHonoServer({
-    //   serverEntryPoint: './__create/index.ts',
-    //   runtime: 'node',
-    // }),
-
     babel({
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: /node_modules/,
@@ -46,6 +40,7 @@ export default defineConfig({
         plugins: ['styled-jsx/babel'],
       },
     }),
+
     restart({
       restart: [
         'src/**/page.jsx',
@@ -56,10 +51,14 @@ export default defineConfig({
         'src/**/route.ts',
       ],
     }),
+
     consoleToParent(),
     loadFontsFromTailwindSource(),
     addRenderIds(),
-    reactRouter(),
+
+    // React Router plugin — disable prerendering
+    reactRouter({ prerender: false }),
+
     tsconfigPaths(),
     aliases(),
     layoutWrapperPlugin(),
@@ -80,16 +79,13 @@ export default defineConfig({
     allowedHosts: true,
     host: '0.0.0.0',
     port: 4000,
-    hmr: {
-      overlay: false,
-    },
+    hmr: { overlay: false },
     warmup: {
       clientFiles: ['./src/app/**/*', './src/app/root.tsx', './src/app/routes.ts'],
     },
   },
   build: {
-    ssr: false, // disabled SSR
-    target: 'esnext',
-    outDir: 'build/client', // optional: match your current SPA folder
+    ssr: false,          // <- completely disable SSR
+    target: 'esnext',    // allow top-level await
   },
 });
