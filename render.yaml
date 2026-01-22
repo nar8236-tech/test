@@ -4,6 +4,6 @@ services:
     env: node
     plan: free
     region: oregon
-    buildCommand: npm install
+    buildCommand: npm install --legacy-peer-deps
     startCommand: npm start
     branch: main
