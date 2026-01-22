@@ -57,7 +57,7 @@ export default defineConfig({
     addRenderIds(),
 
     // React Router plugin — disable prerendering
-    reactRouter({ prerender: false }),
+    reactRouter({ prerender: false, ssr: false }),
 
     tsconfigPaths(),
     aliases(),
